@@ -21,14 +21,16 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <div id="navbar">
-            <div class="navbar-item quicksandLight  active">Home</div>
-            <div class="navbar-item quicksandLight ">Route planner</div>
-            <div class="navbar-item quicksandLight ">About</div>
+            <div id="navbarInner">
+                <div class="navbar-item quicksandLight  active">Home</div>
+                <div class="navbar-item quicksandLight ">Route planner</div>
+                <div class="navbar-item quicksandLight ">About</div>
+            </div>
         </div>
 
         <div id="upper">
 
-            <div id="uppperLeftSide">
+            <div id="upperLeftSide">
 
                 <h1 class="forma">Take the bus</h1>
                 <p class="alexa">because why not</p>
@@ -36,18 +38,18 @@
                 <div id="calcBody">
 
                     <div class="inputOuter">
-                        <label for="whereAreYou quicksandRegular" class="inputLabel">Where are you?</label>`
-                        <div>
-                            <div class="inputGreenBox"></div>
-                            <input name="whereAreYou" type="text">
+                        <label for="whereAreYou quicksandLight" class="inputLabel">Where are you?</label>
+                        <div class="inputWrapper">
+                            <div class="inputGreenBox"><img class="arrow inputArrow" src="icons/arrowRight.svg"></div>
+                            <input name="whereAreYou" type="text" placeholder="Alexanderplatz, Berlin">
                         </div>
                     </div>
 
                     <div class="inputOuter">
-                        <label for="whereAreYou quicksandRegular" class="inputLabel">Where would you like to go?</label>`
-                        <div>
-                            <div class="inputGreenBox"></div>
-                            <input name="whereAreYou" type="text">
+                        <label for="whereAreYou quicksandRegular" class="inputLabel">Where would you like to go?</label>
+                        <div class="inputWrapper">
+                            <div class="inputGreenBox"><img class="arrow inputArrow" src="icons/arrowRight.svg"></div>
+                            <input name="whereGo" type="text" placeholder="Neuköln, Berlin">
                         </div>
                     </div>
 
@@ -57,11 +59,14 @@
 
             </div>
 
-            <div id="upperRightside"><div id="butIllustration"></div></div>
+            <div id="upperRightSide"><img id="busIllustration" src="icons/illustration.png"></div>
 
 
-            <label class="quicksandLight" for="moreBtn">learn more</label>
-            <button name="moreBtn" type="button"><div>Icon</div></button>
+            <div id="learnMore">
+                <label class="quicksandLight" for="moreBtn">learn more</label>
+                <button name="moreBtn" type="button"><img class="arrow moreInfoArrow" src="icons/arrowDown.svg"></button>
+            </div>
+
 
         </div>
 

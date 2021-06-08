@@ -6,10 +6,15 @@
     --almostWhite: #F2F2F2;
 }
 
+::selection {
+    color: var(--deepBlue);
+    background-color: var(--almostWhite);
+}
+
 /* fonts */
 
 .quicksandRegular {
-    font-family: quicksand,sans-serif;
+    font-family: quicksand, sans-serif;
     font-weight: 400;
     font-style: normal;
 }
@@ -42,4 +47,251 @@
     font-family: roboto,sans-serif;
     font-weight: 300;
     font-style: normal;
+}
+
+/* body */
+
+html, body {
+    background-color: var(--deepBlue);
+    overflow-x: hidden;
+    margin: 0;
+}
+
+
+/* general text colors */
+
+h1, p {
+    color: var(--almostWhite);
+}
+
+h2 {
+    color: var(--mediumGreen);
+}
+
+
+/* navbar */
+#navbar {
+    width: 100vw;
+    top: 0;
+    position: relative;
+    height: 10vh;
+    
+}
+#navbarInner {
+    height: 100%;
+    margin-right: 5%;
+    width: 25%;
+    float: right;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.navbar-item, .btn-primary {
+    color: #CFCFCF;
+}
+
+.navbar-item {
+    cursor: pointer;
+}
+
+.navbar-item:hover {
+    color: white;
+    transition: color 0.25s;
+}
+
+#upper {
+    position: relative;
+    height: 90vh;
+    width: 90%;
+    margin-left: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#upperLeftSide h1 {
+    margin: 0;
+    font-size: 65pt;
+}
+
+#upperLeftSide p {
+    position: relative;
+    margin: 0;
+    margin-bottom: 3rem;
+    font-size: 45pt;
+
+}
+
+#calcBody {
+    background-color: var(--almostWhite);
+    border-radius: 1rem;
+    padding: 2rem;
+    max-width: 90%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    box-shadow: 10px 10px 15px #00000027;
+}
+
+#upperRightSide {
+    width: 40%;
+}
+
+#busIllustration {
+    margin-top: 15%;
+    width: 100%;
+    float: right;
+    height: auto;
+}
+
+@media screen and (max-width: 1500px) {
+    #upperRightSide {
+        width: 40%;
+    }
+    #busIllustration{
+        margin-top: 50%;
+ 
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    #busIllustration {
+        display: none;
+    }
+}
+
+
+#learnMore {
+    flex-basis: 100%;
+}
+
+/* btn */
+.btn {
+    margin: 1rem;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    border-radius: 6px;
+    box-shadow: 0 3px 15px #00000027;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    width: 11rem;
+    height: 2rem;
+    padding: 1.25rem;
+    font-size: 20pt;
+    cursor: pointer;
+}
+
+
+
+.btn-primary {
+    color: var(--almostWhite);
+    background-color: var(--darkGreen);
+}
+
+.btn-primary:hover , .inputGreenBox:hover {
+    background-color: var(--mediumGreen);
+}
+/* input */
+
+.inputOuter {
+    position: relative;
+    width: 75%;
+    height: auto;
+    margin: 1rem;
+}
+
+.inputWrapper {
+    margin-top: 1rem;
+    position: inherit;
+    border-radius: 6px;
+    overflow: hidden;
+    width: 100%;
+    box-shadow: 0 3px 15px #00000027;
+}
+
+.inputLabel {
+    color: var(--deepBlue);
+}
+
+label {
+    font-family: quicksand,sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+input {
+    width: 100%;
+    outline: none;
+    text-decoration: none;
+    border: none;
+    height: 1.75rem;
+    padding-left: 0.5rem;
+}
+
+input::placeholder {
+    color: #CFCFCF;
+    font-family: quicksand,sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.inputGreenBox {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    z-index: 1;
+    position: absolute;
+    background-color: var(--darkGreen);
+    width: 40px;
+    height: 100%;
+    right: 0;
+    cursor: pointer;
+}
+
+
+
+#learnMore {
+    width: 10rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#learnMore button {
+    background: none;
+    outline: none;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    width: fit-content;
+}
+
+#learnMore button:hover {
+    box-shadow: 0 3px 15px #00000027;
+    background: none;
+    outline: none;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+}
+
+#learnMore label {
+    color: #CFCFCF;
+    width: fit-content;
+}
+
+.arrow {
+    width: 15px;
+    height: auto;
 }
