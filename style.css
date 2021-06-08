@@ -9,25 +9,37 @@
 /* fonts */
 
 .quicksandRegular {
-
+    font-family: quicksand,sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .quicksandLight {
-    
+    font-family: quicksand,sans-serif;
+    font-weight: 300;
+    font-style: normal;
 }
 
 .forma {
-
+    font-family: forma-djr-display,sans-serif;
+    font-weight: 700;
+    font-style: normal;
 }
 
 .alexa {
-
+    font-family: alexa-std,sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .robotoMedium {
-
+    font-family: roboto,sans-serif;
+    font-weight: 500;
+    font-style: normal;
 }
 
 .robotoLight {
-
+    font-family: roboto,sans-serif;
+    font-weight: 300;
+    font-style: normal;
 }
