@@ -6,7 +6,9 @@ function renderArticles() {
 
         for(i = 0; i < numberOfArticles; i++) {
             var header = document.createElement("h2");
+            header.setAttribute("class", "forma");
             var textBody = document.createElement("p");
+            textBody.setAttribute("class", "quicksandRegular");
 
             var articleBody =document.createElement("div");
             articleBody.setAttribute("class", "articleBody");
