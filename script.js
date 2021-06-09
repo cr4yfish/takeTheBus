@@ -371,7 +371,7 @@ async function openPopup()  {
         routeDetails.appendChild(startLocationSpan);
 
             var locationStartImg = document.createElement("img");
-            locationStartImg.setAttribute("src", "icons/Location.svg");
+            locationStartImg.setAttribute("src", "icons/location.svg");
             startLocationSpan.prepend(locationStartImg);
 
         var startTimeSpan = document.createElement("span");
@@ -403,7 +403,7 @@ async function openPopup()  {
         routeDetails2.appendChild(destinationSpan);
 
             var locationEndImg = document.createElement("img");
-            locationEndImg.setAttribute("src", "icons/Location.svg");
+            locationEndImg.setAttribute("src", "icons/location.svg");
             destinationSpan.prepend(locationEndImg);
 
         var destinationTimeSpan = document.createElement("span");
