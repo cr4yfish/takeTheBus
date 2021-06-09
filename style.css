@@ -6,100 +6,11 @@
     --almostWhite: #F2F2F2;
 }
 
-::selection {
-    color: var(--deepBlue);
-    background-color: var(--almostWhite);
+#mainContent > * {
+    opacity: 0;
+    transition: opacity 0.5s;
 }
 
-/* fonts */
-
-.quicksandRegular {
-    font-family: quicksand, sans-serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-.quicksandLight {
-    font-family: quicksand,sans-serif;
-    font-weight: 300;
-    font-style: normal;
-}
-
-.forma {
-    font-family: forma-djr-display,sans-serif;
-    font-weight: 700;
-    font-style: normal;
-}
-
-.alexa {
-    font-family: alexa-std,sans-serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-.robotoMedium {
-    font-family: roboto,sans-serif;
-    font-weight: 500;
-    font-style: normal;
-}
-
-.robotoLight {
-    font-family: roboto,sans-serif;
-    font-weight: 300;
-    font-style: normal;
-}
-
-/* body */
-
-html, body {
-    background-color: var(--deepBlue);
-    overflow-x: hidden;
-    margin: 0;
-}
-
-
-/* general text colors */
-
-h1, p {
-    color: var(--almostWhite);
-}
-
-h2 {
-    color: var(--mediumGreen);
-}
-
-
-/* navbar */
-#navbar {
-    width: 100vw;
-    top: 0;
-    position: relative;
-    height: 10vh;
-    
-}
-#navbarInner {
-    height: 100%;
-    margin-right: 5%;
-    width: 25%;
-    float: right;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
-.navbar-item, .btn-primary {
-    color: #CFCFCF;
-}
-
-.navbar-item {
-    cursor: pointer;
-}
-
-.navbar-item:hover {
-    color: white;
-    transition: color 0.25s;
-}
 
 #upper {
     position: relative;
@@ -112,18 +23,6 @@ h2 {
     justify-content: space-between;
 }
 
-#upperLeftSide h1 {
-    margin: 0;
-    font-size: 65pt;
-}
-
-#upperLeftSide p {
-    position: relative;
-    margin: 0;
-    margin-bottom: 3rem;
-    font-size: 45pt;
-
-}
 
 #calcBody {
     background-color: var(--almostWhite);
@@ -133,8 +32,9 @@ h2 {
     height: 50%;
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     flex-direction: column;
+    justify-content: space-evenly;
     box-shadow: 10px 10px 15px #00000027;
 }
 
@@ -148,23 +48,6 @@ h2 {
     float: right;
     height: auto;
 }
-
-@media screen and (max-width: 1500px) {
-    #upperRightSide {
-        width: 40%;
-    }
-    #busIllustration{
-        margin-top: 50%;
- 
-    }
-}
-
-@media screen and (max-width: 1000px) {
-    #busIllustration {
-        display: none;
-    }
-}
-
 
 #learnMore {
     flex-basis: 100%;
@@ -278,12 +161,16 @@ input::placeholder {
 }
 
 #learnMore button:hover {
-    box-shadow: 0 3px 15px #00000027;
     background: none;
     outline: none;
     text-decoration: none;
     border: none;
     cursor: pointer;
+}
+
+.hoverLabel {
+    opacity: 0;
+    transition: opacity 1s;
 }
 
 #learnMore label {
@@ -295,3 +182,125 @@ input::placeholder {
     width: 15px;
     height: auto;
 }
+
+.moreInfoArrow {
+    width: 25px !important;
+}
+
+
+/* popup */
+#popupWrapper {
+    transition: opacity 0.25s, width 0.75s;
+    border-radius: 6px;
+    z-index: 5;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--almostWhite);
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 65%;
+    box-shadow: 5px 15px 20px rgba(0, 0, 0, 0.171);
+    border: solid 4px var(--darkGreen);
+}
+
+.routeWrapper {
+    border-radius: 0.5rem;
+    position: relative;
+    background-color: var(--almostWhite);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.205);
+    width: 75%;
+    height: 20%;
+}
+
+.routeWrapper .inputGreenBox {
+    position: relative;
+    float: left;
+    width: 5rem;
+    margin-right: 2rem;
+    border-radius: 0.5rem 0rem 0rem 0.5rem;
+}
+
+
+.routeDetails {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    height: 100%;
+    justify-items: center;
+    margin-left: 20%;
+}
+
+.routeDetails span {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+}
+.routeDetails img {
+    padding-right: 1rem;
+} 
+
+.flexCenter {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+
+.flexCenter h5 {
+    flex-basis: 0;
+    color: #a5a5a5;
+    cursor: pointer;
+}
+
+/* No widescreen desktop */
+@media screen and (max-width: 1500px) {
+    #upperRightSide {
+        width: 40%;
+    }
+    #busIllustration{
+        margin-top: 50%;
+ 
+    }
+}
+/* small desktop / tablet */
+@media screen and (max-width: 1000px) {
+    #busIllustration {
+        display: none;
+    }
+    #popupWrapper {
+        height: 85%;
+        width: 95%;
+    }
+}
+
+/* mobile */
+@media screen and (max-width: 400px) {
+    #upperLeftSide h1 {
+        font-size: 45pt;
+    }
+    
+    #upperLeftSide p {
+        font-size: 25pt;
+    
+    }
+    .routeWrapper img {
+        width: 20px;
+        height: auto;
+    }
+    .routeWrapper {
+        width: 90%;
+    }
+    .inputGreenBox {
+        margin-right: 0.5rem !important;
+    }
+}
+
+

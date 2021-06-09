@@ -1,0 +1,152 @@
+:root {
+    --deepBlue: #2D3B40;
+    --darkGreen: #17A663;
+    --mediumGreen: #0FBF5C;
+    --lightGreen: #05F26C;
+    --almostWhite: #F2F2F2;
+}
+
+::selection {
+    color: var(--deepBlue);
+    background-color: var(--almostWhite);
+}
+
+/* fonts */
+
+.quicksandRegular {
+    font-family: quicksand, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.quicksandLight {
+    font-family: quicksand,sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.forma {
+    font-family: forma-djr-display,sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.alexa {
+    font-family: alexa-std,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.robotoMedium {
+    font-family: roboto,sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.robotoLight {
+    font-family: roboto,sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+/* body */
+
+html, body {
+    background-color: var(--deepBlue);
+    overflow-x: hidden;
+    margin: 0;
+}
+
+
+/* general text colors */
+
+h1 {
+    margin: 0;
+    font-size: 65pt;
+}
+
+h4 {
+    position: relative;
+    margin: 0;
+    margin-bottom: 3rem;
+    font-size: 45pt;
+}
+
+h1, p, h4 {
+    color: var(--almostWhite);
+}
+
+h2 {
+    color: var(--mediumGreen);
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.navbarActive {
+    padding: 0.25rem;
+    color: var(--deepBlue) !important;
+    font-family: roboto,sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    z-index: 1;
+    white-space: normal;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.navbarActive:hover {
+    text-decoration: none;
+}
+
+.navbarActive::before {
+    content: "";
+    position: absolute;
+    bottom: 0em;
+    left: -0.1em;
+    width: calc(100% + 0.2em);
+    height: 100%;
+    background-color:white;
+    border-radius: 3px;
+    transform-origin: 0 95%;
+    z-index: -1;
+    
+}
+
+/* navbar */
+#navbar {
+    width: 100vw;
+    top: 0;
+    position: relative;
+    height: 10vh;
+    
+}
+#navbarInner {
+    height: 100%;
+    margin-right: 5%;
+    width: 25%;
+    float: right;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.navbar-item, .btn-primary {
+    color: white;
+}
+
+.navbar-item {
+    cursor: pointer;
+}
+
+.navbar-item:hover {
+    color: white;
+    transition: color 0.25s;
+}
