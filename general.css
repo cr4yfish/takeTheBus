@@ -11,6 +11,17 @@
     background-color: var(--almostWhite);
 }
 
+::-webkit-scrollbar {
+    background-color: var(--deepBlue);
+    width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--darkGreen);
+    border-radius: 31px;
+   
+}
+
 /* fonts */
 
 .quicksandRegular {
@@ -72,7 +83,11 @@ h4 {
     font-size: 45pt;
 }
 
-h1, p, h4 {
+h1 {
+    color: var(--lightGreen);
+}
+
+p, h4 {
     color: var(--almostWhite);
 }
 

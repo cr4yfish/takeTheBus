@@ -36,6 +36,11 @@ function renderArticles() {
         numberOfArticles = Object.keys(data).length;
 
         for(i = 0; i < numberOfArticles; i++) {
+
+            var doubleText = document.createElement("span");
+
+            var div = document.createElement("div");
+
             var header = document.createElement("h2");
             header.setAttribute("class", "forma");
             var textBody = document.createElement("p");
@@ -47,10 +52,14 @@ function renderArticles() {
 
             lowerContent.appendChild(articleBody);
 
-            articleBody.appendChild(header);
-            articleBody.appendChild(textBody);
+            articleBody.appendChild(doubleText);
+            articleBody.appendChild(div);
+
+            div.appendChild(header);
+            div.appendChild(textBody);
 
             header.textContent = data[i].articleHeader;
+            doubleText.textContent = data[i].articleHeader;
             textBody.textContent = data[i].articleText;
         }
     })
