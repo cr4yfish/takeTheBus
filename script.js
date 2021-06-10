@@ -37,6 +37,8 @@ function renderArticles() {
 
         for(i = 0; i < numberOfArticles; i++) {
 
+            console.log("Rendering Article ", i, " out of ", numberOfArticles, ".", " Title: ", data[i].articleHeader, ".");
+            console.log("==============");
             var doubleText = document.createElement("span");
 
             var div = document.createElement("div");
@@ -61,6 +63,12 @@ function renderArticles() {
             header.textContent = data[i].articleHeader;
             doubleText.textContent = data[i].articleHeader;
             textBody.textContent = data[i].articleText;
+
+            // make backround text smaller if title longer than 15 chars
+
+            /*if(data[i].articleHeader.length >=15) {
+                doubleText.style.fontSize()
+            }*/
         }
     })
 }
