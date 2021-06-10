@@ -329,10 +329,20 @@ async function homeTransition() {
 }
 
 
-function aboutTransition() {
+async function aboutTransition() {
     console.log("about transition");
 
     fadeOutContent();
+
+    var mainContent = document.getElementById("mainContent");
+
+    var h1 = document.createElement("h1");
+    h1.textContent = "Under construction.";
+
+    mainContent.appendChild(h1);
+
+    await sleep(500);
+    fadeInContent();
 }
 
 async function openPopup()  {

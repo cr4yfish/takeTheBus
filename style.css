@@ -282,6 +282,7 @@ input::placeholder {
     z-index: 1;
     font-size: 45pt;
     margin: 0;
+    text-decoration: underline;
 }
 
 .articleBody p {
@@ -326,6 +327,14 @@ input::placeholder {
     #popupWrapper {
         height: 85%;
         width: 95%;
+    }
+    #navbarInner a {
+        margin-right: 3rem;
+    }
+    #navbarInner {
+        float: none;
+        margin-right: 0;
+        justify-content: center;
     }
 }
 
