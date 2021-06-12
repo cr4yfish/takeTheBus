@@ -10,5 +10,9 @@
     {
         "articleHeader": "Also..",
         "articleText": "Also ich finde ja Bahn besser als Bus."
+    },
+    {
+        "articleHeader": "Test artikel",
+        "articleText": "test test"
     }
 ]
