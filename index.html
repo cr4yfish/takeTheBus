@@ -7,7 +7,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Take the bus</title>
+        <title>Nimm den Bus</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style.css">
@@ -24,40 +24,67 @@
         <div id="navbar">
             <div id="navbarInner">
                 <a onclick="navbarSwitching(this);homeTransition();" class="navbar-item quicksandLight navbarActive">Home</a>
-                <a onclick="aboutTransition();navbarSwitching(this);" class="navbar-item quicksandLight ">About</a>
+                <a onclick="aboutTransition();navbarSwitching(this);" class="navbar-item quicksandLight ">Über uns</a>
             </div>
         </div>
 
 
     <div id="mainContent">
 
+        <div id="popupWrapper">
+
+            <div class="routeWrapper">
+                <div class="inputGreenBox">
+                    <img src="icons/currentLocation.svg">
+                </div>
+                <div class="routeDetails">
+                    <span id="startLocation" class="quicksandRegular">
+                    <img src="icons/location.svg"><span>Start location</span></span>
+                    <span id="startTime" class="quicksandRegular"><img src="icons/clock.svg"><span>14:52</span></span>
+                </div>
+            </div>
+
+            <div class="routeWrapper">
+                <div class="inputGreenBox"><img src="icons/destination.svg"></div>
+                <div class="routeDetails">
+                    <span id="endLocation" class="quicksandRegular"><img src="icons/location.svg"><span>Destination</span></span>
+                    <span id="endTime" class="quicksandRegular"><img src="icons/clock.svg"><span>14:52</span></span>
+                </div>
+            </div>
+
+            <div class="flexCenter">
+                <button class="forma calcCommitBtn btn-primary btn" onclick="remindMe();">Speichern</button>
+                <h5 class="quicksandRegular" onclick="closePopup();">zurück</h5>
+            </div>
+
+        </div>
 
         <div id="upper">
 
             <div id="upperLeftSide">
 
-                <h1 class="forma">Take the bus</h1>
-                <h4 class="alexa">because why not</h4>
+                <h1 class="forma">Nimm den Bus</h1>
+                <h4 class="alexa">oder die Bahn</h4>
             
                 <div id="calcBody">
 
                     <div class="inputOuter">
-                        <label for="whereAreYou" class="inputLabel">Where are you?</label>
+                        <label for="whereAreYou" class="inputLabel">Wo bist du?</label>
                         <div class="inputWrapper">
                             <div class="inputGreenBox"><img class="arrow inputArrow" src="icons/arrowRight.svg"></div>
-                            <input name="whereAreYou" type="text" placeholder="Alexanderplatz, Berlin">
+                            <input id="whereYou" name="whereAreYou" type="text" placeholder="Flughafen">
                         </div>
                     </div>
 
                     <div class="inputOuter">
-                        <label for="whereAreYou" class="inputLabel">Where would you like to go?</label>
+                        <label for="whereGo" class="inputLabel">Wo willst du hin?</label>
                         <div class="inputWrapper">
                             <div class="inputGreenBox"><img class="arrow inputArrow" src="icons/arrowRight.svg"></div>
-                            <input name="whereGo" type="text" placeholder="Neuköln, Berlin">
+                            <input id="whereGo" name="whereGo" type="text" placeholder="Bremerhaven">
                         </div>
                     </div>
 
-                    <button onclick="openPopup();" class="forma calcCommitBtn btn-primary btn">Go!</button>
+                    <button onclick="calcRoute();" class="forma calcCommitBtn btn-primary btn">Go!</button>
                     
                 </div>
 

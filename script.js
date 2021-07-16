@@ -353,115 +353,177 @@ async function aboutTransition() {
     fadeInContent();
 }
 
+async function calcRoute() {
+
+    // --- Time -- 
+        Date.prototype.formatMMDDYYYY = function(){
+            let day, month;
+
+            if(this.getDate() < 10) {
+                // needs a 0 in front
+                day = "0" + this.getDate();
+            } else {
+                day = this.getDate();
+            }
+
+            if((this.getMonth() + 1) < 10) {
+                // needs a 0 in front
+                month = "0" + (this.getMonth() + 1);
+            } else {
+                month = this.getMonth() + 1
+            }
+
+            return month + "-" +  day + "-" +  this.getFullYear();
+        };
+
+        Date.prototype.getCurrentTime = function() {
+            let hours = new Date().getHours();
+            let minutes = new Date().getMinutes();
+            let seconds = new Date().getSeconds();
+
+            let timeArray = [hours, minutes, seconds];
+
+            const newArray = timeArray.map(unit => unit < 10 ? "0" + unit : unit)
+
+            return `${newArray[0]}:${newArray[1]}:${newArray[2]}`
+        }
+
+        const currentDate = new Date().formatMMDDYYYY();
+        const currentTime = new Date().getCurrentTime();
+        console.log(currentDate, currentTime);
+    //  
+
+    // --- Location -- 
+        let whereYou = document.getElementById("whereYou").value;
+            if(!whereYou.includes("Bremen")) {
+                whereYou+=", Bremen, Deutschland"
+            } else {
+                whereYou+=",Deutschland"
+            }
+            
+        let whereGo = document.getElementById("whereGo").value;
+            if(!whereGo.includes("Bremen")) {
+                whereGo+=", Bremen, Deutschland"
+            } else {
+                whereGo+=", Deutschland"
+            }
+
+        console.log("Locations:")
+        console.log(whereYou, "\n", whereGo);
+
+        // gets coordinates and dumps them into an array
+
+            
+
+            function getLatLong(start, end) {
+                let placesArray = [];
+
+                const mapUrl = `http://open.mapquestapi.com/geocoding/v1/address?key=bVBhmzn2zZuMZUnEwwIaJrsEpXSNtY3b&location=`
+
+                fetch(mapUrl+whereYou)
+                .then(response => response.json())
+                .then(function(res) {
+                    latLng = res.results[0].locations[0].latLng
+                    placesArray.push(`${latLng.lat},${latLng.lng}`);
+
+                    // then fetch where you want to go
+                    fetch(mapUrl+whereGo)
+                    .then(response => response.json())
+                    .then(function(res) {
+                        latLng = res.results[0].locations[0].latLng
+                        placesArray.push(`${latLng.lat},${latLng.lng}`);
+
+                    })
+
+                    .then (function() {
+
+                        // then get the route, now the other fetches should be done
+                        getRoute(currentDate, currentTime, placesArray[0], placesArray[1])
+                        
+
+
+
+                    })
+                })
+
+            }
+        //07-15-2021 53.534893,8.597946 53.052751,8.78665
+        
+        //07-25-2019 53.08287 ,8.81334  53.05270 ,8.78617
+        
+        // gets route
+        function getRoute(date,time,start,end) {
+            console.log("Getting route");
+
+            const url = `http://localhost:3565/api/${date}/${time}/${start}/${end}`
+
+            console.log(url);
+            const requestOptions = {
+                method: "GET"
+            }
+            
+            fetch(url, requestOptions)
+            .then(reponse => reponse.json())
+            .then(result => {
+                console.log(result);
+
+                Date.prototype.calcTimeFrom1970 = function(time) {
+                    let hours = new Date(time).getHours();
+                    let minutes = new Date(time).getMinutes();
+                    let seconds = new Date(time).getSeconds();
+        
+                    let timeArray = [hours, minutes, seconds];
+        
+                    const newArray = timeArray.map(unit => unit < 10 ? "0" + unit : unit)
+        
+                    return `${newArray[0]}:${newArray[1]}:${newArray[2]}`
+                }
+
+                try {
+                // intineraries = the same route at different times, possible different ways
+
+                // use the first one
+                let legs = result.plan.itineraries[0].legs;
+
+                const responseFirstLegName = legs[1].from.name
+                const responseFirstLegStartTime = new Date().calcTimeFrom1970(legs[1].from.arrival);
+
+                const responseLastLegName = legs[legs.length-1].from.name;
+                const responseLastLegStartTime = new Date().calcTimeFrom1970(legs[legs.length-1].from.arrival);
+                console.log(`From ${responseFirstLegName} to ${responseLastLegName}`);
+
+                // change popupWrapper
+
+                    //startLocation
+                    document.querySelector("#startLocation span").textContent = responseFirstLegName;
+                    document.querySelector("#startTime span").textContent = responseFirstLegStartTime;
+
+                    //end
+                    document.querySelector("#endLocation span").textContent = responseLastLegName;
+                    document.querySelector("#endTime span").textContent = responseLastLegStartTime;
+
+                openPopup()
+                }
+                catch (e) {
+                    console.log(e);
+                    alert("Konnte die Route nicht berechnen, bitte versuche eine andere.");
+                }
+            });
+        }
+
+        getLatLong(whereYou, whereGo)
+        
+        
+}
+
 async function openPopup()  {
 
     console.log("Creating popup");
 
-    var mainContent = document.getElementById("mainContent");
-
-    var popupWrapper = document.createElement("div");
-    var routeWrapper = document.createElement("div");
-    var routeWrapper2 = document.createElement("div");
+    let popup = document.getElementById("popupWrapper");
+    popup.style.display = "flex"
+    popup.style.opacity = 1;
     
-
-    popupWrapper.setAttribute("id", "popupWrapper");
-    routeWrapper.setAttribute("class", "routeWrapper");
-    routeWrapper2.setAttribute("class", "routeWrapper");
-
-
-
-    mainContent.prepend(popupWrapper);
-
-    popupWrapper.appendChild(routeWrapper);
-    popupWrapper.appendChild(routeWrapper2);
-    
-
-    // route Wrapper
-    var inputGreenBox = document.createElement("div");
-    inputGreenBox.setAttribute("class", "inputGreenBox");
-    routeWrapper.appendChild(inputGreenBox);
-
-        var currentLocationImg = document.createElement("img");
-        currentLocationImg.setAttribute("src", "icons/currentLocation.svg");
-        inputGreenBox.appendChild(currentLocationImg);
-
-
-
-
-    var routeDetails = document.createElement("div")
-    routeDetails.setAttribute("class", "routeDetails");
-    routeWrapper.appendChild(routeDetails);
-
-        var startLocationSpan = document.createElement("span");
-        startLocationSpan.setAttribute("class", "quicksandRegular");
-        startLocationSpan.textContent = "Start location";
-        routeDetails.appendChild(startLocationSpan);
-
-            var locationStartImg = document.createElement("img");
-            locationStartImg.setAttribute("src", "icons/location.svg");
-            startLocationSpan.prepend(locationStartImg);
-
-        var startTimeSpan = document.createElement("span");
-        startTimeSpan.setAttribute("class", "quicksandRegular");
-        startTimeSpan.textContent = "14:52";
-        routeDetails.appendChild(startTimeSpan);
-
-            var timeStartImg = document.createElement("img");
-            timeStartImg.setAttribute("src", "icons/clock.svg");
-            startTimeSpan.prepend(timeStartImg);
-    
-
-    var inputGreenBox2 = document.createElement("div")
-    inputGreenBox2.setAttribute("class", "inputGreenBox");
-    routeWrapper2.appendChild(inputGreenBox2);
-
-        var destinationImg = document.createElement("img");
-        destinationImg.setAttribute("src", "icons/destination.svg");
-        inputGreenBox2.appendChild(destinationImg);
-
-
-    var routeDetails2 = document.createElement("div")
-    routeDetails2.setAttribute("class", "routeDetails");
-    routeWrapper2.appendChild(routeDetails2);
-
-        var destinationSpan = document.createElement("span");
-        destinationSpan.setAttribute("class", "quicksandRegular");
-        destinationSpan.textContent = "Destination";
-        routeDetails2.appendChild(destinationSpan);
-
-            var locationEndImg = document.createElement("img");
-            locationEndImg.setAttribute("src", "icons/location.svg");
-            destinationSpan.prepend(locationEndImg);
-
-        var destinationTimeSpan = document.createElement("span");
-        destinationTimeSpan.setAttribute("class", "quicksandRegular");
-        destinationTimeSpan.textContent = "14:52";
-        routeDetails2.appendChild(destinationTimeSpan);
-
-            var timeEndImg = document.createElement("img");
-            timeEndImg.setAttribute("src", "icons/clock.svg");
-            destinationTimeSpan.prepend(timeEndImg);
-
-
-
-    var buttons = document.createElement("div");
-    buttons.setAttribute("class", "flexCenter");
-    popupWrapper.appendChild(buttons);
-
-    var btn = document.createElement("button");
-    btn.setAttribute("class", "forma calcCommitBtn btn-primary btn");
-    btn.setAttribute("onclick", "remindMe();");
-    btn.textContent = "Remind me";
-    buttons.appendChild(btn);
-
-    var h5 = document.createElement("h5");
-    h5.setAttribute("class", "quicksandRegular");
-    h5.setAttribute("onclick", "closePopup();");
-    h5.textContent = "cancel";
-    buttons.appendChild(h5);
-
-    await sleep(150);
-    popupWrapper.style.opacity = 1;
 }
 
 
@@ -470,8 +532,10 @@ async function closePopup() {
     var popupWrapper = document.getElementById("popupWrapper");
 
     popupWrapper.style.opacity = 0;
-    popupWrapper.style.width = 0;
     await sleep(501);
+    popupWrapper.style.display = "none";
+}
 
-    popupWrapper.remove();
+function remindMe() {
+    
 }

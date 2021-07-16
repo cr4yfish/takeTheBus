@@ -200,7 +200,7 @@ input::placeholder {
     flex-direction: column;
     align-items: center;
     background-color: var(--almostWhite);
-    display: flex;
+    display: none;
     flex-wrap: nowrap;
     justify-content: space-evenly;
     position: absolute;
