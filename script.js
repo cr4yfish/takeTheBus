@@ -353,41 +353,53 @@ async function aboutTransition() {
     fadeInContent();
 }
 
+Date.prototype.calcTimeFrom1970 = function(time) {
+    let hours = new Date(time).getHours();
+    let minutes = new Date(time).getMinutes();
+    let seconds = new Date(time).getSeconds();
+
+    let timeArray = [hours, minutes, seconds];
+
+    const newArray = timeArray.map(unit => unit < 10 ? "0" + unit : unit)
+
+    return `${newArray[0]}:${newArray[1]}:${newArray[2]}`
+}
+
+Date.prototype.formatMMDDYYYY = function(){
+    let day, month;
+
+    if(this.getDate() < 10) {
+        // needs a 0 in front
+        day = "0" + this.getDate();
+    } else {
+        day = this.getDate();
+    }
+
+    if((this.getMonth() + 1) < 10) {
+        // needs a 0 in front
+        month = "0" + (this.getMonth() + 1);
+    } else {
+        month = this.getMonth() + 1
+    }
+
+    return month + "-" +  day + "-" +  this.getFullYear();
+};
+
+Date.prototype.getCurrentTime = function() {
+    let hours = new Date().getHours();
+    let minutes = new Date().getMinutes();
+    let seconds = new Date().getSeconds();
+
+    let timeArray = [hours, minutes, seconds];
+
+    const newArray = timeArray.map(unit => unit < 10 ? "0" + unit : unit)
+
+    return `${newArray[0]}:${newArray[1]}:${newArray[2]}`
+}
+
 async function calcRoute() {
 
     // --- Time -- 
-        Date.prototype.formatMMDDYYYY = function(){
-            let day, month;
-
-            if(this.getDate() < 10) {
-                // needs a 0 in front
-                day = "0" + this.getDate();
-            } else {
-                day = this.getDate();
-            }
-
-            if((this.getMonth() + 1) < 10) {
-                // needs a 0 in front
-                month = "0" + (this.getMonth() + 1);
-            } else {
-                month = this.getMonth() + 1
-            }
-
-            return month + "-" +  day + "-" +  this.getFullYear();
-        };
-
-        Date.prototype.getCurrentTime = function() {
-            let hours = new Date().getHours();
-            let minutes = new Date().getMinutes();
-            let seconds = new Date().getSeconds();
-
-            let timeArray = [hours, minutes, seconds];
-
-            const newArray = timeArray.map(unit => unit < 10 ? "0" + unit : unit)
-
-            return `${newArray[0]}:${newArray[1]}:${newArray[2]}`
-        }
-
         const currentDate = new Date().formatMMDDYYYY();
         const currentTime = new Date().getCurrentTime();
         console.log(currentDate, currentTime);
@@ -411,109 +423,69 @@ async function calcRoute() {
         console.log("Locations:")
         console.log(whereYou, "\n", whereGo);
 
-        // gets coordinates and dumps them into an array
 
-            
+    // gets route
 
-            function getLatLong(start, end) {
-                let placesArray = [];
+        console.log("Getting route");
 
-                const mapUrl = `http://open.mapquestapi.com/geocoding/v1/address?key=bVBhmzn2zZuMZUnEwwIaJrsEpXSNtY3b&location=`
+        //const url = `http://localhost:56565/api`
+        const url = `https://take-the-bus.herokuapp.com/api`
 
-                fetch(mapUrl+whereYou)
-                .then(response => response.json())
-                .then(function(res) {
-                    latLng = res.results[0].locations[0].latLng
-                    placesArray.push(`${latLng.lat},${latLng.lng}`);
-
-                    // then fetch where you want to go
-                    fetch(mapUrl+whereGo)
-                    .then(response => response.json())
-                    .then(function(res) {
-                        latLng = res.results[0].locations[0].latLng
-                        placesArray.push(`${latLng.lat},${latLng.lng}`);
-
-                    })
-
-                    .then (function() {
-
-                        // then get the route, now the other fetches should be done
-                        getRoute(currentDate, currentTime, placesArray[0], placesArray[1])
-                        
-
-
-
-                    })
-                })
-
-            }
-        //07-15-2021 53.534893,8.597946 53.052751,8.78665
-        
-        //07-25-2019 53.08287 ,8.81334  53.05270 ,8.78617
-        
-        // gets route
-        function getRoute(date,time,start,end) {
-            console.log("Getting route");
-
-            const url = `http://localhost:3565/api/${date}/${time}/${start}/${end}`
-
-            console.log(url);
-            const requestOptions = {
-                method: "GET"
-            }
-            
-            fetch(url, requestOptions)
-            .then(reponse => reponse.json())
-            .then(result => {
-                console.log(result);
-
-                Date.prototype.calcTimeFrom1970 = function(time) {
-                    let hours = new Date(time).getHours();
-                    let minutes = new Date(time).getMinutes();
-                    let seconds = new Date(time).getSeconds();
-        
-                    let timeArray = [hours, minutes, seconds];
-        
-                    const newArray = timeArray.map(unit => unit < 10 ? "0" + unit : unit)
-        
-                    return `${newArray[0]}:${newArray[1]}:${newArray[2]}`
-                }
-
-                try {
-                // intineraries = the same route at different times, possible different ways
-
-                // use the first one
-                let legs = result.plan.itineraries[0].legs;
-
-                const responseFirstLegName = legs[1].from.name
-                const responseFirstLegStartTime = new Date().calcTimeFrom1970(legs[1].from.arrival);
-
-                const responseLastLegName = legs[legs.length-1].from.name;
-                const responseLastLegStartTime = new Date().calcTimeFrom1970(legs[legs.length-1].from.arrival);
-                console.log(`From ${responseFirstLegName} to ${responseLastLegName}`);
-
-                // change popupWrapper
-
-                    //startLocation
-                    document.querySelector("#startLocation span").textContent = responseFirstLegName;
-                    document.querySelector("#startTime span").textContent = responseFirstLegStartTime;
-
-                    //end
-                    document.querySelector("#endLocation span").textContent = responseLastLegName;
-                    document.querySelector("#endTime span").textContent = responseLastLegStartTime;
-
-                openPopup()
-                }
-                catch (e) {
-                    console.log(e);
-                    alert("Konnte die Route nicht berechnen, bitte versuche eine andere.");
-                }
-            });
+        const data = {
+            from: whereYou,
+            to: whereGo,
+            date: currentDate,
+            time: currentTime
         }
+        
+        const requestOptions = {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            },
+        }
+        
+        fetch(url, requestOptions)
+        .then(reponse => reponse.json())
+        .then(result => {
+            console.log(result);
 
-        getLatLong(whereYou, whereGo)
-        
-        
+
+            try {
+
+                if(result == "error") {
+                    alert("Die Route Konnte nicht berechnet werden, bitte versuche eine andere.");
+                    return;
+                }
+
+
+            const startTime = result.startTime;
+            const startPlace = result.startPlace;
+
+            const endTime = result.endTime;
+            const endPlace = result.endPlace;
+            
+            console.log(`From ${startPlace} to ${endPlace}`);
+
+            // change popupWrapper
+
+                //startLocation
+                document.querySelector("#startLocation span").textContent = startPlace;
+                document.querySelector("#startTime span").textContent = new Date().calcTimeFrom1970(startTime);
+
+                //end
+                document.querySelector("#endLocation span").textContent = endPlace;
+                document.querySelector("#endTime span").textContent = new Date().calcTimeFrom1970(endTime);
+
+            openPopup()
+            }
+            catch (e) {
+                console.log(e);
+                alert("Die Route Konnte nicht berechnet werden, bitte versuche eine andere.");
+            }
+        });
+    
 }
 
 async function openPopup()  {
